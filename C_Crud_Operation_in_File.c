@@ -173,7 +173,7 @@ void Operations() {
         else if(choice == 3) updateUser();
         else if(choice == 4) deleteUser();
         else if(choice == 5) {
-            printf("Exiting...\n");
+            printf("Exiting..\n");
             break;
         }
         else printf("Invalid choice. Try again.\n");
