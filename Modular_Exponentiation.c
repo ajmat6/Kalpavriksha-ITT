@@ -3,7 +3,7 @@ typedef long long ll;
 
 int evaluate(ll base, ll power, ll mod) {
     long long ans = 1;
-
+    base = (base % mod + mod) % mod; // negative base handling
     while(power != 0) {
         if(power & 1) ans = (ans * base) % mod; // if current bit is on
         base = (base * base) % mod;
