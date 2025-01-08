@@ -8,19 +8,7 @@ int isVowel(char* name) {
     return 0;
 }
 
-int main() {
-    int rows, cols;
-    printf("Enter number of rows: ");
-    scanf("%d", &rows);
-
-    printf("Enter number of columns: ");
-    scanf("%d", &cols);
-
-    if(rows < 1 || rows > 10 || cols < 1 || cols > 101) {
-        printf("Invalid input of rows and cols!");
-        return 0;
-    }
-
+void result(int rows, int cols) {
     char matrix[rows][cols][51];
     int vowelStartNames = 0;
     int maxLengthNameSize = 0;
@@ -52,6 +40,22 @@ int main() {
 
     printf("Number of names starting with a vowel: %d\n", vowelStartNames);
     printf("The longest name: %s", maxLengthName);
+}
+
+int main() {
+    int rows, cols;
+    printf("Enter number of rows: ");
+    scanf("%d", &rows);
+
+    printf("Enter number of columns: ");
+    scanf("%d", &cols);
+
+    if(rows < 1 || rows > 10 || cols < 1 || cols > 101) {
+        printf("Invalid input of rows and cols!");
+        return 0;
+    }
+
+    result(rows, cols);
 
     return 0;
 }
