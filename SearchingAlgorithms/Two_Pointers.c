@@ -5,6 +5,7 @@ void printArray(int* arr, int size) {
     for(int i=0; i<size; i++) printf("%d ", arr[i]);
 }
 
+// binary search is a two pointer technique:
 void twoPointers(int* arr, int size, int target) {
     int low = 0;
     int high = size - 1;
