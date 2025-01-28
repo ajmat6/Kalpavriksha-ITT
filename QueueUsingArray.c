@@ -4,57 +4,70 @@
 #define SIZE 1000
 
 typedef struct {
-    int top;
+    int front;
+    int rear;
     int size;
     int items[SIZE];
-} Stack;
+} Queue;
 
-void initialize(Stack *s) {
-    s -> top = -1;
-    s -> size = 0;
+void initialize(Queue *q) {
+    q -> front = -1;
+    q -> rear = -1;
+    q -> size = 0;
 }
 
-int isFull(Stack* s) {
-    return s -> top == SIZE - 1;
+int isEmpty(Queue* q) {
+    return q -> front == -1;
 }
 
-int isEmpty(Stack* s) {
-    return s -> top == -1;
+int isFull(Queue* q) {
+    if((q -> front == 0 && q -> rear == (SIZE - 1)) || (q -> rear == (q -> front - 1))) return 1;
+    return 0;
 }
 
-int giveSize(Stack* s) {
-    return s -> size;
-}
-
-void push(Stack* s, int value) {
-    if (isFull(s)) {
-        printf("Stack is Full!\n");
+void push(Queue* q, int value) {
+    if (isFull(q)) {
+        printf("Queue is Full!...\n");
         return;
     }
-    s -> items[++(s -> top)] = value;
-    s -> size += 1;
+
+    if(q -> front == -1) {
+        q -> front = 0;
+        q -> rear = 0;
+    }
+    else if(q -> rear == SIZE - 1 && q -> front != 0) q -> rear = 0;
+    else q -> rear += 1;
+    q -> items[q -> rear] = value;
+    q -> size += 1;
 }
 
-void pop(Stack* s) {
-    if (isEmpty(s)) {
-        printf("Stack is empty!\n");
+void pop(Queue* q) {
+    if (isEmpty(q)) {
+        printf("Queue is Empty!...\n");
         return;
     }
-    s -> top -= 1;
-    s -> size -= 1;
+
+    if(q -> front == q -> rear) q -> front = q -> rear = -1;
+    else if(q -> front == (SIZE - 1)) q ->  front = 0;
+    else q -> front += 1;
+    q -> size -= 1;
 }
 
-int peek(Stack* s) {
-    if (isEmpty(s)) {
-        printf("Stack is Empty!\n");
+int peek(Queue* q) {
+    if (isEmpty(q)) {
+        printf("Queue is Empty!...\n");
         return -1;
     }
-    return s -> items[s -> top];
+    return q -> items[q -> front];
+}
+
+int qSize(Queue* q) {
+    return q -> size;
 }
 
 void result(int totalOps) {
-    Stack st;
-    initialize(&st);
+    Queue q;
+    initialize(&q);
     for(int i=0; i<totalOps; i++) {
         printf("Press 1 to Enqueue\n");
         printf("Press 2 to Dequeue\n");
@@ -67,17 +80,17 @@ void result(int totalOps) {
 
         if(command == 1) {
             int value;
-            printf("Enter value to push: ");
+            printf("Enter value to enqueue: ");
             scanf("%d", &value);
-            push(&st, value);
+            push(&q, value);
         }
-        else if(command == 2) pop(&st);
-        else if(command == 3) printf("Peek element is %d\n", peek(&st));
+        else if(command == 2) pop(&q);
+        else if(command == 3) printf("Front element is %d\n", peek(&q));
         else if(command == 4) {
-            if(isEmpty(&st)) printf("Stack is empty\n");
-            else printf("Stack is not empty\n");
+            if(isEmpty(&q)) printf("Queue is empty\n");
+            else printf("Queue is not empty\n");
         }
-        else if(command == 5) printf("Stack size is %d\n", giveSize(&st));
+        else if(command == 5) printf("Queue size is %d\n", qSize(&q));
     }
 }
 
