@@ -45,21 +45,13 @@ char peek(Stack* s) {
 }
 
 void result(char* input) {
-    int size = strlen(input);
     Stack st;
     initialize(&st);
-    for(int i=0; input[i] != '\0'; i++) {
-        if(input[i] == '[' || input[i] == '{' || input[i] == '(') push(&st, input[i]);
-        else {
-            if(isEmpty(&st) || (input[i] == ')' && peek(&st) != '(') || (input[i] == '}' && peek(&st) != '{') || (input[i] == ']' && peek(&st) != '[')) {
-                printf("false\n");
-                return;
-            }
-            pop(&st);
-        }
+    for(int i=0; input[i] != '\0'; i++) push(&st, input[i]);
+    while(!isEmpty(&st)) {
+        printf("%c", peek(&st));
+        pop(&st);
     }
-    if(isEmpty(&st)) printf("true");
-    else printf("false");
 }
 
 int main() {

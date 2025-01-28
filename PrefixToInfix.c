@@ -33,7 +33,7 @@ void pop(Stack* s) {
         printf("Stack is empty!\n");
         exit(1);
     }
-    s -> items[(s -> top)--];
+    s -> top -= 1;
 }
 
 char* peek(Stack* s) {

@@ -48,10 +48,11 @@ void result(int* nums, int size) {
     Stack st;
     initialize(&st);
     for(int i=0; i<size; i++) {
-        while(!isEmpty(&st) && peek(&st) >= nums[i]) pop(&st);
-        if(isEmpty(&st)) printf("-1 ");
-        else printf("%d ", peek(&st));
-        push(&st, nums[i]);
+        while(isEmpty(&st) == 0 && nums[i] >= nums[peek(&st)]) pop(&st);
+        int prevIndex = -1;
+        if(isEmpty(&st) == 0) prevIndex = peek(&st);
+        printf("%d ", i - prevIndex);
+        push(&st, i);
     }
 }
 
