@@ -65,14 +65,17 @@ int qSize(Queue* q) {
     return q -> size;
 }
 
-void stackPush(Queue* q, int value) {
-    push(q, value);
-    int qSize = q -> size;
-    for(int i=0; i<(qSize - 1); i++) {
-        int qFront = peek(q);
-        push(q, qFront);
-        pop(q);
+void stackPush(Queue* q1, Queue* q2, int value) {
+    push(q2, value);
+    while(!isEmpty(q1)) {
+        push(q2, peek(q1));
+        pop(q1);
     }
+
+    // swapping of queues:
+    Queue temp = *q1;
+    *q1 = *q2;
+    *q2 = temp;
 }
 
 void stackPop(Queue* q) {
@@ -83,33 +86,16 @@ int stackPeek(Queue* q) {
     return peek(q);
 }
 
-void stackDisplay(Queue* q) {
-    if(isEmpty(q)) {
-        printf("No elements to display!\n");
-        return;
-    }
-
-    printf("Elements from top of stack to bottom are: ");
-    int frontIndex = q -> front;
-    int rearIndex = q -> rear;
-    if(rearIndex < frontIndex) {
-        for(int i=frontIndex; i<SIZE; i++) printf("%d ", q -> items[i]);
-        for(int i=0; i<=rearIndex; i++) printf("%d ", q -> items[i]);
-    }
-    else {
-        for(int i=frontIndex; i<=rearIndex; i++) printf("%d ", q -> items[i]);
-    }
-    printf("\n");
-}
-
 void result(int totalOperations) {
-    Queue q;
-    initialize(&q);
+    Queue q1, q2;
+    initialize(&q1);
+    initialize(&q2);
     for(int i=0; i<totalOperations; i++) {
         printf("Press 1 to push\n");
         printf("Press 2 to pop\n");
         printf("Press 3 to get peek element\n");
-        printf("Press 4 to display all stack elements\n");
+        printf("Press 4 to check if stack is empty or not\n");
+        printf("Press 5 to get stack size\n");
 
         int command;
         scanf("%d", &command);
@@ -118,12 +104,15 @@ void result(int totalOperations) {
             int value;
             printf("Enter value to push into stack: ");
             scanf("%d", &value);
-            stackPush(&q, value);
+            stackPush(&q1, &q2, value);
         }
-        else if(command == 2) stackPop(&q);
-        else if(command == 3) printf("%d\n", stackPeek(&q));
-        else if(command == 4) stackDisplay(&q);
-        else printf("Invalid Command!\n");
+        else if(command == 2) stackPop(&q1);
+        else if(command == 3) printf("Peek element in stack is %d\n", stackPeek(&q1));
+        else if(command == 4) {
+            if(isEmpty(&q1)) printf("Stack is empty\n");
+            else printf("Stack is not empty\n");
+        }
+        else if(command == 5) printf("Size of the stack is %d\n", qSize(&q1));
     }
 }
 
