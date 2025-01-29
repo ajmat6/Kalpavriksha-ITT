@@ -57,7 +57,7 @@ void result(int size) {
     initialize(&temp);
     while(!isEmpty(&st)) {
         int currElement = peek(&st); pop(&st);
-        while(!isEmpty(&temp) && peek(&temp) < currElement) {
+        while(!isEmpty(&temp) && currElement > peek(&temp)) {
             push(&st, peek(&temp));
             pop(&temp);
         }
