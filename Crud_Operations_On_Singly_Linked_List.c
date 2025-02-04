@@ -35,7 +35,10 @@ void insertAtPosition(int position, int value) {
 
     int currPos = 1;
     Node* currNode = head;
-    while(currPos < position - 1) currNode = currNode -> next;
+    while(currPos < position - 1) {
+        currNode = currNode -> next;
+        currPos++;
+    }
 
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode -> data = value;
