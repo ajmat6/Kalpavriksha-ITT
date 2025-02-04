@@ -99,6 +99,7 @@ void deleteAtPosition(int position) {
     while(currPos < position) {
         prev = curr;
         curr = curr -> next;
+        currPos++;
     }
 
     prev -> next = curr -> next;
@@ -130,8 +131,8 @@ void handleOperations(int n) {
             int value;
             printf("Enter new node value: ");
             scanf("%d", &value);
-            if(option == 1) insertAtBeginning(value);
-            else insertAtEnd(value);
+            if(option == 1) insertAtEnd(value);
+            else insertAtBeginning(value);
             totalNodes++;
         }
         else if(option == 3) {
